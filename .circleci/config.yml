@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/python3.6.1
+      - image: circleci/python3.10-rc-buster
       
   
     working_directory: ~/repo
