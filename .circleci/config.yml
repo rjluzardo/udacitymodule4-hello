@@ -24,12 +24,9 @@ jobs:
       - run:         
           name: install dependencies
           command: |
-            apk add --no-cache \
-                python3 \
-                py3-pip \
-                curl \
-            && pip3 install --upgrade pip \
-            && pip3 install deployv
+            python3 -m venv venv
+            . venv/bbin/activate
+            make install
             
       
       - save_cache:
