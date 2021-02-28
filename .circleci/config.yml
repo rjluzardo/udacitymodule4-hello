@@ -24,12 +24,13 @@ jobs:
       - run:         
           name: install dependencies
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            yum -y install build-essential
-            pwd
-            ls
-            make install
+            apk add --no-cache \
+                python3 \
+                py3-pip \
+                curl \
+            && pip3 install --upgrade pip \
+            && pip3 install deployv
+            
       
       - save_cache:
           paths:
