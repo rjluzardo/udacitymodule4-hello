@@ -6,33 +6,32 @@ orbs:
 jobs:
   build:
     docker:
-      image: circleci/python3.6.1
+      - image: circleci/python3.6.1
       
   
-    working_dorectory: ~/repo
+    working_directory: ~/repo
     
     steps:
       - checkout
       
-      # Download and cache dependencies
+    #Download and cache dependencies
       - restore_cache:
-        keys:
-          -v1-dependencies-{{ "requirements.txt" }}
-          
-        #fallback to using the latest cache if no exact match is fpound
-          -v1-dependencies-
+          keys:
+            - v1-dependencies-{{ "requirements.txt" }}        
+            #fallback to using the latest cache if no exact match is fpound
+            - v1-dependencies-
 
-      - run:
-          
+      - run:         
           name: install dependencies
+          command: |
             python3 -m venv venv
             - venv/bbin/activate
-              make isntall
+              make install
       
-      -save_cache:
-        paths:
-          - ./venv
-        key: vi-dependencies-{{ checksum "requirements.txt" }}
+      - save_cache:
+          paths:
+            - ./venv
+          key: vi-dependencies-{{ checksum "requirements.txt" }}
       
       - run:
           name: run lint
@@ -44,4 +43,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - build-and-test
+      - build
